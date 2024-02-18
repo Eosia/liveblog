@@ -7,8 +7,6 @@ use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-
-
 #[Layout('components.layouts.auth')]
 
 class Register extends Component
@@ -21,7 +19,6 @@ class Register extends Component
         $user = User::create($this->form->all());
         auth()->login($user);
         return $this->redirect('/');
-
     }
 
     public function render()

@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\Register;
 
@@ -20,5 +21,17 @@ Route::get('/', function () {
 });
 
 Route::middleware(['guest'])->group(function () {
+    // route register
     Route::get('register', Register::class)->name('register');
+    // route login
+    Route::get('login', Login::class)->name('login');
+
+});
+
+Route::middleware(['auth'])->group(function () {
+    // route logout
+    Route::get('logout', function () {
+        auth()->logout();;
+        return redirect('/');
+    })->name('logout');
 });
