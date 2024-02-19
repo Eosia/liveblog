@@ -21,7 +21,7 @@
                 @enderror
 
                 <div class="mb-3">
-                    <label class="form-label" >Email address</label>
+                    <label class="form-label" >Adresse email</label>
                     <input wire:model.blur="form.email" type="email" class="form-control" placeholder="monsuper@email.com">
                 </div>
                 @error('form.email')

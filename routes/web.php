@@ -1,8 +1,11 @@
 <?php
 
-use App\Livewire\Auth\Login;
+
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Auth\Register;
+use App\Livewire\Auth\{Register,
+    Login,
+    Forgot,
+};
 
 
 /*
@@ -25,6 +28,9 @@ Route::middleware(['guest'])->group(function () {
     Route::get('register', Register::class)->name('register');
     // route login
     Route::get('login', Login::class)->name('login');
+    // route forgot
+    Route::get('forgot', Forgot::class)->name('forgot');
+
 
 });
 
