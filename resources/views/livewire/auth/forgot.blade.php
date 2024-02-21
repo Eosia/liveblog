@@ -19,7 +19,7 @@
                 </h2>
 
                 <div class="mb-3">
-                    <label class="form-label" >Adresse email/label>
+                    <label class="form-label" >Adresse email</label>
                     <input wire:model.blur="email" type="email" class="form-control" placeholder="monsuper@email.com">
                 </div>
                 @error('email')

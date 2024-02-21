@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PasswordResetNotification extends Notification
+class PasswordResetNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -42,7 +42,10 @@ class PasswordResetNotification extends Notification
                     ->greeting('Bonjour '. $notifiable->name)
                     ->subject('Réinitialisation de votre mot de passe')
                     ->line('Veuillez cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe.')
-                    ->action('Réinitialiser', url('/forgot'))
+                    ->action('Réinitialiser', route('reset', [
+                        'token' => $this->token,
+                        'email' => $this->email,
+                    ]))
                     ->salutation('L\'équipe ' . config('app.name'));
     }
 
