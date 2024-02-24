@@ -2,22 +2,22 @@
 
 namespace App\Livewire\Auth;
 
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Validate;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash; // Incluez Hash
 use Livewire\Component;
+use Livewire\Attributes\Layout;
 
 #[Layout('components.layouts.auth')]
-
 class Reset extends Component
 {
-
     public string $token = '';
     public string $email = '';
-    #[Validate('required|min:6|max:191|confirmed')]
+    #[Validate('required|min:8|max:20|confirmed')]
     public string $password = '';
     public string $password_confirmation = '';
     public string $error = '';
-    public string $user;
+    public $user;
 
     public function mount()
     {
@@ -26,14 +26,41 @@ class Reset extends Component
             ->where('token', $this->token)
             ->where('created_at', '>', now()->subHour())
             ->first();
-        if(! $password_reset_token){
+        if (!$password_reset_token) {
             session()->flash('error', 'Le lien de réinitialisation a expiré. <br>
-            Veuillez de nouveau faire un demande de réinitialisation.');
+            Veuillez de nouveau faire une demande de réinitialisation.');
             return redirect()->route('forgot');
         }
 
         $this->email = $password_reset_token->email;
         $this->user = User::where('email', $this->email)->firstOrFail();
+    }
+
+    public function store()
+    {
+        $this->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        if (!DB::table('password_reset_tokens')->where('token', $this->token)->where('email', $this->email)->exists()) {
+            session()->flash('error', 'Le lien de réinitialisation a expiré. <br>
+            Veuillez de nouveau faire une demande de réinitialisation.');
+            return redirect()->route('forgot');
+        }
+
+        $this->user->update([
+            'password' => Hash::make($this->password), // Utilisez Hash::make pour hacher le mot de passe
+        ]);
+
+        DB::table('password_reset_tokens')
+            ->where('token', $this->token)->where('email', $this->email)
+            ->delete();
+
+        session()->flash('success', 'Votre mot de passe est réinitialisé ! <br>
+        Vous pouvez maintenant vous connecter.');
+
+        return redirect()->route('login');
     }
 
     public function render()

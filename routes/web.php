@@ -2,10 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Auth\{Register,
-    Login,
-    Forgot,
-};
+use App\Livewire\Auth\{Register, Login, Forgot, Reset};
 
 
 /*
@@ -30,6 +27,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('login', Login::class)->name('login');
     // route forgot
     Route::get('forgot', Forgot::class)->name('forgot');
+    // route reset password
+    Route::get('reset', Reset::class)->name('reset');
 
 
 });

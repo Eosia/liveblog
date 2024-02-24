@@ -1,16 +1,19 @@
 <div class="page page-center">
     <div class="container container-tight py-4">
-        <div class="text-center mb-4">
-            <a href="{{ url('/') }}" class="navbar-brand navbar-brand-autodark">
-                <img src="{{ Vite::asset('resources/static/logo.svg') }}" height="36" alt="">
-            </a>
-        </div>
+        <x-partials.logo />
 
         @if($error)
             <div class="alert alert-danger">
                 {{ $error }}
             </div>
         @endif
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {!! session('success') !!}
+            </div>
+        @endif
+
 
         <form class="card card-md" wire:submit="store">
             <div class="card-body">
@@ -55,7 +58,7 @@
             <br><br>
 
             <a href="{{ route('forgot') }}" tabindex="-1">
-                Réinitialisé mon mot de passe
+                Réinitialiser mon mot de passe
             </a>
 
         </div>
