@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.auth')]
+    #[Layout('components.layouts.auth')]
 class Login extends Component
 {
 

@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Livewire\{Home,};
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\{Register, Login, Forgot, Reset};
 
@@ -16,9 +17,7 @@ use App\Livewire\Auth\{Register, Login, Forgot, Reset};
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', Home::class)->name('home');
 
 Route::middleware(['guest'])->group(function () {
     // route register
