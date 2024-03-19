@@ -30,7 +30,7 @@ class Article extends Model
     }
 
     public function photos() : HasMany {
-        return $this->hasMany(Photo::class);
+        return $this->hasMany(Photo::class)->latest('id');
     }
 
     public function photo() : HasOne {
