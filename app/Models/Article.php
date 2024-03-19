@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,8 +16,8 @@ class Article extends Model
 
     protected $guarded = [];
 
-    public  const STATUS_DRAFT = 'draft';
-    public  const STATUS_PUBLISHED = 'published';
+    public const STATUS_DRAFT = 'draft';
+    public const STATUS_PUBLISHED = 'published';
 
     public static function boot() {
         parent::boot();
@@ -25,8 +26,12 @@ class Article extends Model
         });
     }
 
+    public function scopePublished(Builder $query) {
+        $query->where('status', self::STATUS_PUBLISHED);
+    }
+
     public function user() : BelongsTo {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function photos() : HasMany {
