@@ -36,7 +36,13 @@
                                         </a>
                                     </h3>
                                     <div class="d-flex align-items-center">
-                                        <span class="rounded avatar me-3" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                                        <span class="rounded avatar me-3">
+                                            <img src="{{ $article->user->avatar->thumbnail_url ?? asset('default_images/default.png') }}"
+                                                 class="card-img-top" alt="{{ $article->user->name }}"
+                                                 width="40" height="40"
+                                                 loading="lazy" decoding="async"
+                                            >
+                                        </span>
                                         <div>
                                             <div>
                                                 {{ $article->user->name }}
