@@ -146,15 +146,11 @@
                     </span>
                             </a>
                             <div class="dropdown-menu">
+                                @foreach($this->categories as $category)
                                 <a class="dropdown-item" href="">
-                                    Laravel
+                                    {{ $category->name }}
                                 </a>
-                                <a class="dropdown-item" href="">
-                                    PHP
-                                </a>
-                                <a class="dropdown-item" href="">
-                                    Vue
-                                </a>
+                                @endforeach
                             </div>
                         </li>
 

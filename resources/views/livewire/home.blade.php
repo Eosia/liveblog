@@ -50,6 +50,14 @@
                                             <div class="text-muted">
                                                 {{ $article->created_at->diffForHumans() }}
                                             </div>
+
+                                            Catégorie :
+                                            <span>
+                                                <a href="" wire:navigate>
+                                                    {{ $article->category->name }}
+                                                </a>
+                                            </span>
+
                                         </div>
                                         <div class="ms-auto">
                                             <a href="#" class="ms-3 text-muted">
