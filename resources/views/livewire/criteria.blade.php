@@ -2,6 +2,14 @@
     <div class="col-auto ms-auto d-print-none">
         <form action="">
             <div class="d-flex">
+
+                <div class="me-3">
+                    <input type="search" wire:model="search"
+                        x-on:keydown.enter.prevent="$wire.sortBy($wire.sort, $wire.direction, $wire.value)"
+                        class="form-control" placeholder="Rechercher"
+                    >
+                </div>
+
                 <div class="me-3">
                     <select wire:model="sort" @change="$wire.sortBy($wire.value)" class="form-select">
                         <option value="">Trier</option>

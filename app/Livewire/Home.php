@@ -15,10 +15,13 @@ class Home extends Component
 
     public string $sort = '';
     public string $direction = '';
+    public string $search = '';
+
     protected function queryString() : array {
         return [
             'sort' => ['except' => ''],
-            'direction' =>  ['except' => ''],
+            'direction' => ['except' => ''],
+            'search' => ['except' => ''],
         ];
     }
 
@@ -34,15 +37,16 @@ class Home extends Component
            $this->direction = 'desc';
         }
         return $this->articleService
-            ->getAll(Article::query()->published(), $this->sort, $this->direction)
+            ->getAll(Article::query()->published(), $this->sort, $this->direction, $this->search)
             ->paginate(9);
     }
 
     #[on('updateSort')]
 
-    public function updateSort($sort, $direction) {
+    public function updateSort($sort, $direction, $search) {
         $this->sort = $sort;
         $this->direction = $direction;
+        $this->search = $search;
         $this->resetPage();
     }
 

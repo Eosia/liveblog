@@ -12,7 +12,7 @@
                         </h2>
                     </div>
 
-                    @livewire('criteria', ['sort' => $sort, 'direction' => $direction] )
+                    @livewire('criteria', ['sort' => $sort, 'direction' => $direction, 'search' => $search] )
 
 {{--                    <div class="d-flex justify-content-end">--}}
 {{--                        <div class="col-auto ms-auto d-print-none">--}}

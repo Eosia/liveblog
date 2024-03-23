@@ -50,6 +50,24 @@ class Article extends Model
         };
     }
 
+    public function scopeSearch($query, string $terms = null) {
+
+        $terms = trim($terms);
+        collect(explode(' ', $terms))->filter()->each(function($term) use($query) {
+            $term = '%'.$term.'%';
+
+            $query->where(function($query) use($term) {
+                $query->where('title', 'like', $term);
+                $query->orWhere('content', 'like', $term)
+                    ->orWhereIn('user_id', User::query()
+                    ->where('name', 'like', $term)
+                    ->get()->pluck('id')
+                );
+            });
+        });
+    }
+
+
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
     }
