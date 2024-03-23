@@ -12,6 +12,9 @@ class ArticleService
         $query->unless('$sort', function(Builder $query) {
             $query->latest();
         });
+
+        $query->when($sort, fn($query, $sort) => $query->sort($sort, $direction));
+
         return $query;
 
     }

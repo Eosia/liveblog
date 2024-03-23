@@ -30,6 +30,26 @@ class Article extends Model
         $query->where('status', self::STATUS_PUBLISHED);
     }
 
+    public function scopeSort($query, $sort, $direction) {
+        return match($sort)  {
+            'author' => $query->orderBy(User::select('name')
+                ->whereHas('articles')
+                ->whereColumn('id', 'articles.user_id')
+                ->orderBy('name')
+                ->take(1),
+                $direction
+            ),
+            'categories' =>$query->orderBy(Category::select('name')
+                ->whereColumn('id', 'articles.category_id')
+                ->orderBy('name')
+                ->take(1),
+                $direction
+            ),
+            'date' =>$query->orderBy('created_at', $direction),
+            default => $query->orderBy('created_at', 'desc'),
+        };
+    }
+
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
     }
