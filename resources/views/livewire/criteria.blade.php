@@ -3,7 +3,7 @@
         <form action="">
             <div class="d-flex">
                 <div class="me-3">
-                    <select wire:model="sort" x-on:change="$wire.sortBy($wire.value)" class="form-select">
+                    <select wire:model="sort" @change="$wire.sortBy($wire.value)" class="form-select">
                         <option value="">Trier</option>
                         <option value="date">Date</option>
                         <option value="author">Auteur</option>
@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="me-3">
-                    <select wire:model="direction" x-on:change="$wire.sortBy($wire.sort)" class="form-select">
+                    <select wire:model="direction" @change="$wire.sortBy($wire.sort)" class="form-select">
                         <option value="asc">Ascendant</option>
                         <option value="desc">Descendant</option>
                     </select>
