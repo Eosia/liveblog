@@ -3,19 +3,19 @@
 namespace App\Livewire;
 
 use App\Http\Services\ArticleService;
+use App\Models\Article;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use App\Models\Category as CategoryModel;
 use Livewire\WithPagination;
-use App\Models\Article;
 
-
-class Home extends Component
+class Category extends Component
 {
-    use WithPagination;
 
-    public string $sort = '';
-    public string $direction = '';
-    public string $search = '';
+    use withPagination;
+    public CategoryModel $category;
+    private ArticleService $articleService;
+    public $sort, $direction, $search;
 
     protected function queryString() : array {
         return [
@@ -26,7 +26,9 @@ class Home extends Component
     }
 
 
-    private ArticleService $articleService;
+    public function mount(CategoryModel $category) : void {
+        $this->category = $category;
+    }
 
     public function boot(ArticleService $articleService) {
         $this->articleService = $articleService;
@@ -34,10 +36,10 @@ class Home extends Component
 
     public function getArticles() {
         if(! in_array($this->direction, ['asc', 'desc'])) {
-           $this->direction = 'desc';
+            $this->direction = 'desc';
         }
         return $this->articleService
-            ->getAll(Article::query()->published(), $this->sort, $this->direction, $this->search)
+            ->getAll(Article::query()->whereCategoryId($this->category->id)->published(), $this->sort, $this->direction, $this->search)
             ->paginate(9);
     }
 
@@ -49,19 +51,11 @@ class Home extends Component
         $this->resetPage();
     }
 
-
     public function render()
     {
-        return view('livewire.home',
-        [
-           'heading' => 'Accueil',
-//            'articles' => $this->articleService->getAll(Article::query(), null, null)
-//                ->paginate(9),
+        return view('livewire.home', [
+            'heading' =>'Articles de la catégorie : ' . $this->category->name,
             'articles' => $this->getArticles(),
-        ])
-            ->title('Blog - '.config('app.name'))
-            ->layoutData([
-              'description' => 'Retrouvez ici tous les articles du blog.'
-            ]);
+        ]);
     }
 }

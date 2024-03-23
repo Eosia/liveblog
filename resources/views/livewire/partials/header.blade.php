@@ -147,7 +147,9 @@
                             </a>
                             <div class="dropdown-menu">
                                 @foreach($this->categories as $category)
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="{{ route('category', $category->slug) }}"
+                                    wire:navigate
+                                >
                                     {{ $category->name }}
                                 </a>
                                 @endforeach
