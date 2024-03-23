@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Http\Services\ArticleService;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Article;
@@ -37,7 +38,11 @@ class Home extends Component
             ->paginate(9);
     }
 
-    public function updateSort() {
+    #[on('updateSort')]
+
+    public function updateSort($sort, $direction) {
+        $this->sort = $sort;
+        $this->direction = $direction;
         $this->resetPage();
     }
 
