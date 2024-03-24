@@ -84,4 +84,8 @@ class Article extends Model
         return $this->hasOne(Photo::class)->latestOfMany();
     }
 
+    public function comments() : HasMany {
+        return $this->hasMAny(Comment::class);
+    }
+
 }

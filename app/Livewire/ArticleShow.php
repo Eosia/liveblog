@@ -15,7 +15,9 @@ class ArticleShow extends Component
              'photos',
              'user.avatar',
              'category',
-         ]);
+             'comments.user.avatar',
+         ])
+         ->loadCount('comments');
     }
 
     public function render()
