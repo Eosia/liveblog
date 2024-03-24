@@ -70,40 +70,81 @@
                                     {{ $article->comments_count }} Commentaire(s)
                                 </h3>
 
-                                @if($article->comments_count)
-                                    <div class="list-group list-group-flush list-group-hoverable">
+                                <div x-data="{comments: @js($article->comments), expanded:false}"
+                                    class="list-group list-group-flush list-group-hoverable"
+                                >
+                                    <template x-for="(comment, index) in comments" :key="index">
+                                        <div class="row align-items-center mb-4"
+                                            x-show="index <=2 || expanded" x-transition.opacity.delay.30ms
+                                        >
+                                            <div class="col-auto">
+                                                <a :href="'/user/'+comment.user.slug" wire:navigate>
+                                                    <img :src="comment?.user?.avatar?.thumbnail_url ?? '/php_fans/jpeg'"
+                                                         :alt="comment.user.name"
+                                                        decoding="async" loading="lazy" class="avatar"
+                                                    >
+                                                </a>
+                                            </div>
+                                            <div class="col text-truncate">
+                                                <a :href="'/user/'+comment.user.slug" wire:navigate>
+                                                    <span x-text="comment.user.name">
 
-                                        @foreach($article->comments as $comment)
-                                            <div wire:key="{{ $comment->id }}"
-                                                 class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                        <a href="{{ route('user', $comment->user->slug) }}">
-                                                            <img class="avatar"
-                                                                 src="{{ $comment->user->avatar->thumbnail_url ?? asset('default_images/default.png') }}"
-                                                                 alt="{{ $comment->user->name }}">
-                                                        </a>
-                                                    </div>
-                                                    <div class="col text-truncate">
-                                                        <a href="{{ route('user', $comment->user->slug) }}">
-                                                            <span>{{ $comment->user->name }}</span>
-                                                        </a>
-                                                        -
-                                                        <span class="text-muted">{{ $comment->created_at->diffForHumans() }}</span>
-                                                        <div class="d-block text-muted text-truncate mt-n1">
-                                                            {{ $comment->content }}
-                                                        </div>
-                                                    </div>
+                                                    </span>
+                                                </a>
+                                                <div x-text="comment.content" class="d-block text-muted mt-n1">
+
                                                 </div>
                                             </div>
-                                        @endforeach
                                         </div>
-                                @else
-                                    <div class="alert alert-info">
-                                        Aucun commentaire pour le moment
+                                    </template>
+
+                                    <button x-show="comments.length > 3" @click="expanded = ! expanded"
+                                            x-text="expanded ? 'Moins de commentaires' : 'Voir plus de commentaires'"
+                                            class="btn btn-info mt-1 text-center"
+                                    >
+
+                                    </button>
+
+                                    <div x-show="! comments.length" class="alert alert-info">
+                                        Aucun commentaire actuellement
                                     </div>
-                                    </div>
-                                @endif
+
+                                </div>
+
+{{--                                @if($article->comments_count)--}}
+{{--                                    <div class="list-group list-group-flush list-group-hoverable">--}}
+
+{{--                                        @foreach($article->comments as $comment)--}}
+{{--                                            <div wire:key="{{ $comment->id }}"--}}
+{{--                                                 class="list-group-item">--}}
+{{--                                                <div class="row align-items-center">--}}
+{{--                                                    <div class="col-auto">--}}
+{{--                                                        <a href="{{ route('user', $comment->user->slug) }}">--}}
+{{--                                                            <img class="avatar"--}}
+{{--                                                                 src="{{ $comment->user->avatar->thumbnail_url ?? asset('default_images/default.png') }}"--}}
+{{--                                                                 alt="{{ $comment->user->name }}">--}}
+{{--                                                        </a>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="col text-truncate">--}}
+{{--                                                        <a href="{{ route('user', $comment->user->slug) }}">--}}
+{{--                                                            <span>{{ $comment->user->name }}</span>--}}
+{{--                                                        </a>--}}
+{{--                                                        ---}}
+{{--                                                        <span class="text-muted">{{ $comment->created_at->diffForHumans() }}</span>--}}
+{{--                                                        <div class="d-block text-muted text-truncate mt-n1">--}}
+{{--                                                            {{ $comment->content }}--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        @endforeach--}}
+{{--                                        </div>--}}
+{{--                                @else--}}
+{{--                                    <div class="alert alert-info">--}}
+{{--                                        Aucun commentaire pour le moment--}}
+{{--                                    </div>--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
 
                             </div>
                         </div>

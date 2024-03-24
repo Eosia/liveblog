@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)
             ->has(Article::factory()->count(rand(5, 10))->hasPhotos(rand(2, 5)))
             ->hasAvatar()
-            ->hasComments(rand(5,10))
+            ->hasComments(10)
             ->create();
     }
 }
