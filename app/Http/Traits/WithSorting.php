@@ -2,10 +2,9 @@
 
 namespace App\Http\Traits;
 
+
 trait WithSorting
 {
-
-
     protected function queryStringWithSorting()
     {
         return [

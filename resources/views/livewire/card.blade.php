@@ -14,17 +14,19 @@
                 </a>
             </h3>
             <div class="d-flex align-items-center">
-                                        <span class="rounded avatar me-3">
-                                            <img
-                                                src="{{ $article->user->avatar->thumbnail_url ?? asset('default_images/default.png') }}"
-                                                class="card-img-top" alt="{{ $article->user->name }}"
-                                                width="40" height="40"
-                                                loading="lazy" decoding="async"
-                                            >
-                                        </span>
+                 <span class="rounded avatar me-3">
+                     <a href="{{ route('user', $article->user->slug) }}" wire:navigate>
+                         <img src="{{ $article->user->avatar->thumbnail_url ?? asset('default_images/default.png') }}"
+                              class="card-img-top" alt="{{ $article->user->name }}"
+                              width="40" height="40"
+                              loading="lazy" decoding="async" >
+                     </a>
+                     </span>
                 <div>
                     <div>
-                        {{ $article->user->name }}
+                        <a href="{{ route('user', $article->user->slug) }}" wire:navigate>
+                            {{ $article->user->name }}
+                        </a>
                     </div>
                     <div class="text-muted">
                         {{ $article->created_at->diffForHumans() }}
@@ -32,7 +34,7 @@
 
                     Catégorie :
                     <span>
-                           <a href="{{ route('category', $article->category->slug) }}" wire:navigate>
+                        <a href="{{ route('category', $article->category->slug) }}" wire:navigate>
                                {{ $article->category->name }}
                            </a>
                     </span>

@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Livewire\{Home, Category,};
+use App\Livewire\{Home, Category, User, };
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\{Register, Login, Forgot, Reset};
 
@@ -20,6 +20,8 @@ use App\Livewire\Auth\{Register, Login, Forgot, Reset};
 Route::get('/', Home::class)->name('home');
 
 Route::get('category/{category}', Category::class)->name('category');
+
+Route::get('user/{user:slug}', User::class)->name('user');
 
 Route::middleware(['guest'])->group(function () {
     // route register
