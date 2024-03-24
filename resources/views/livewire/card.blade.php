@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-lg-4">
     <div class="card card-sm">
-        <a href="#" class="d-block">
+        <a wire:navigate href="{{ route('article.show', $article->slug) }}" class="d-block">
             <img src="{{ $article->photo->thumbnail_url }}"
                  class="card-img-top" alt="{{ $article->title }}"
                  width="417" height="281"
@@ -9,7 +9,7 @@
         </a>
         <div class="card-body">
             <h3 class="text-truncate">
-                <a href="#">
+                <a href="{{ route('article.show', $article->slug) }}" wire:navigate>
                     {{ $article->title }}
                 </a>
             </h3>
