@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Http\Services\ArticleService;
+use App\Http\Traits\ArticleTrait;
+use App\Http\Traits\WithSorting;
 use App\Models\Article;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -13,18 +15,11 @@ class Category extends Component
 {
 
     use withPagination;
+    use WithSorting;
     public CategoryModel $category;
+    use ArticleTrait;
     private ArticleService $articleService;
     public $sort, $direction, $search;
-
-    protected function queryString() : array {
-        return [
-            'sort' => ['except' => ''],
-            'direction' => ['except' => ''],
-            'search' => ['except' => ''],
-        ];
-    }
-
 
     public function mount(CategoryModel $category) : void {
         $this->category = $category;
@@ -32,15 +27,6 @@ class Category extends Component
 
     public function boot(ArticleService $articleService) {
         $this->articleService = $articleService;
-    }
-
-    public function getArticles() {
-        if(! in_array($this->direction, ['asc', 'desc'])) {
-            $this->direction = 'desc';
-        }
-        return $this->articleService
-            ->getAll(Article::query()->whereCategoryId($this->category->id)->published(), $this->sort, $this->direction, $this->search)
-            ->paginate(9);
     }
 
     #[on('updateSort')]
@@ -55,7 +41,9 @@ class Category extends Component
     {
         return view('livewire.home', [
             'heading' =>'Articles de la catégorie : ' . $this->category->name,
-            'articles' => $this->getArticles(),
+            'articles' => $this->getArticles(
+                Article::query()->published()->whereCategoryId($this->category->id)
+            ),
         ]);
     }
 }
