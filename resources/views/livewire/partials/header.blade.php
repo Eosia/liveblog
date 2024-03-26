@@ -101,15 +101,16 @@
                         <a href="#" class="p-0 nav-link d-flex lh-1 text-reset" data-bs-toggle="dropdown" aria-label="Open user menu">
                             <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
                             <div class="d-none d-xl-block ps-2">
-                                <div>Paweł Kuna</div>
-                                <div class="mt-1 small text-muted">UI Designer</div>
+                                <div>{{ $username }}</div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a href="" class="dropdown-item">Profile</a>
+                            <a href="{{ route('profile') }}" class="dropdown-item" wire:navigate>
+                                Mon compte
+                            </a>
                             <a href="#" class="dropdown-item">Mes articles</a>
                             <div class="dropdown-divider"></div>
-                            <a href="" class="dropdown-item">Logout</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                     @endauth
@@ -188,7 +189,7 @@
 
                         @auth()
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}" >
+                                <a class="nav-link" href="{{ route('profile') }}" wire:navigate>
                                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-scan"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M8 16a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" /></svg>
                                     <span class="nav-link-title">
                                 Mon compte

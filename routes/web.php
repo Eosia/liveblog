@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Livewire\{ Home, Category, User, Article, ArticleShow,};
+use App\Livewire\{Home, Category, Profile, User, Article, ArticleShow};
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\{Register, Login, Forgot, Reset};
 
@@ -39,6 +39,9 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    // route profile
+    Route::get('profile', Profile::class)->name('profile');
+
     // route logout
     Route::get('logout', function () {
         auth()->logout();;

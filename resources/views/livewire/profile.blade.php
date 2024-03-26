@@ -1,0 +1,84 @@
+<div>
+    @livewire('partials.header')
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-3 d-none d-md-block border-end">
+                        <div class="card-body">
+                            <h4 class="subheader">{{ $heading }}</h4>
+                            <div class="list-group list-group-transparent">
+                                <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-center active" wire:navigate>
+                                    Mon compte
+                                </a>
+                            </div>
+                            <h4 class="subheader mt-4">Experience</h4>
+                            <div class="list-group list-group-transparent">
+                                <a href="#" class="list-group-item list-group-item-action">Give Feedback</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div class="card-body">
+                            <h2 class="mb-4">{{ $heading }}</h2>
+                            <h3 class="card-title">Profile Details</h3>
+                            <div class="row align-items-center">
+                                <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                                </div>
+                                <div class="col-auto"><a href="#" class="btn">
+                                        Change avatar
+                                    </a></div>
+                                <div class="col-auto"><a href="#" class="btn btn-ghost-danger">
+                                        Delete avatar
+                                    </a></div>
+                            </div>
+                            <h3 class="card-title mt-4">{{ $heading }}</h3>
+
+                            @if($success)
+                                <div class="alert alert-success">
+                                    {{ $success }}
+                                </div>
+                            @endif
+
+                            <form wire:submit="store">
+                                <div class="row g-3">
+                                    <div class="col-md">
+                                        <div class="form-label">Nom</div>
+                                        <input type="text" wire:model="name"
+                                               class="form-control" autofocus>
+                                        @error('name')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Email</div>
+                                        <input type="email" class="form-control" wire:model="email">
+                                        @error('email')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mt-2">
+                                    <div class="btn-list justify-content-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            Envoyer
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @livewire('partials.footer')
+</div>
