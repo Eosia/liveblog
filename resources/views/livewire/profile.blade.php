@@ -21,16 +21,9 @@
                     <div class="col d-flex flex-column">
                         <div class="card-body">
                             <h2 class="mb-4">{{ $heading }}</h2>
-                            <h3 class="card-title">Profile Details</h3>
+                            <h3 class="card-title">Mon profil</h3>
                             <div class="row align-items-center">
-                                <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                                </div>
-                                <div class="col-auto"><a href="#" class="btn">
-                                        Change avatar
-                                    </a></div>
-                                <div class="col-auto"><a href="#" class="btn btn-ghost-danger">
-                                        Delete avatar
-                                    </a></div>
+                                @livewire('avatar-form', ['user' => $user])
                             </div>
                             <h3 class="card-title mt-4">{{ $heading }}</h3>
 

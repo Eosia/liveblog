@@ -99,7 +99,8 @@
                     @auth()
                     <div class="nav-item dropdown">
                         <a href="#" class="p-0 nav-link d-flex lh-1 text-reset" data-bs-toggle="dropdown" aria-label="Open user menu">
-                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                            <img src="{{ Auth::user()->avatar->thumbnail_url ?? asset('default_images/default.png') }}"
+                                 alt="{{ $username }}" class="avatar avatar-sm">
                             <div class="d-none d-xl-block ps-2">
                                 <div>{{ $username }}</div>
                             </div>
