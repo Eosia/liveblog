@@ -28,7 +28,7 @@
                                     {{ $heading }}
                                 </h3>
                                 <div class="mb-2">
-                                    Catégorie : <a href="{{ route('category', $article->category->slug) }}">
+                                    Catégorie : <a href="{{ route('category', $article->category->slug) }}" wire:navigate>
                                         {{ $article->category->name }}
                                     </a>
                                 </div>
@@ -70,6 +70,41 @@
                                     {{ $article->comments_count }} Commentaire(s)
                                 </h3>
 
+                                @auth()
+
+                                    @if(session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+
+                                    <form wire:submit.prevent="storeComment">
+                                        <div class="mb-3">
+                                            <textarea wire:model="content" class="form-control" rows="3"
+                                                placeholder="Entrez votre commentaire ..."
+                                            ></textarea>
+                                        </div>
+                                        @error('content')
+                                            <div class="text-danger">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        <div class="mb-3 text-end">
+                                            <button type="submit" class="btn btn-primary">
+                                                Envoyer
+                                            </button>
+                                        </div>
+                                    </form>
+                                @endauth
+
+                                @guest()
+                                    <div class="alert alert-warning">
+                                        Vous devez <a href="{{ route('login') }}">
+                                            vous connecter
+                                        </a> pour commenter
+                                    </div>
+                                @endguest
+
                                 <div x-data="{comments: @js($article->comments), expanded:false}"
                                     class="list-group list-group-flush list-group-hoverable"
                                 >
@@ -87,10 +122,11 @@
                                             </div>
                                             <div class="col text-truncate">
                                                 <a :href="'/user/'+comment.user.slug" wire:navigate>
-                                                    <span x-text="comment.user.name">
-
-                                                    </span>
+                                                    <span x-text="comment.user.name"></span>
                                                 </a>
+                                                -
+                                                <span class="text-muted" x-text="comment.time_ago"></span>
+
                                                 <div x-text="comment.content" class="d-block text-muted mt-n1">
 
                                                 </div>
