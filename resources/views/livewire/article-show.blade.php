@@ -33,11 +33,37 @@
                                     </a>
                                 </div>
 
-                                <div class="text-center">
+                                {{--<div class="text-center">
                                     <img src="{{ $article->photo->url }}" alt="{{ $article->title }}"
                                         decoding="async" loading="lazy" class="img-fluid"
                                     >
+                                </div>--}}
+
+                                <div id="carouselExample" class="carousel carousel-dark slide">
+                                    <div class="carousel-inner">
+                                        @foreach($article->photos as $photo)
+                                        <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}"
+                                        >
+                                            <img src="{{ $photo->url }}" class="d-block img-fluid mx-auto"
+                                                 alt="{{ $article->title }} photo {{ $loop->iteration }}"
+                                                width="500" height="500"
+                                            >
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
+
+
+
+
 
                                 <div class="mt-4 markdown">
                                     <div>
