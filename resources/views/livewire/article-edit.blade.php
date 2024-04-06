@@ -17,6 +17,12 @@
                                 </div>
                             @endif
 
+                            @if($success)
+                                <div class="alert alert-success">
+                                    {{ $success }}
+                                </div>
+                            @endif
+
                             <form wire:submit="update" method="post" enctype="multipart/form-data">
                                 <div class="row mt-2">
                                     <div class="col-md">
@@ -57,7 +63,6 @@
                                             <option value="">Status</option>
                                             <option value="published">Publié</option>
                                             <option value="draft">Brouillon</option>
-
                                         </select>
                                         @error('status')
                                         <div class="text-danger">{{ $message }}</div>
@@ -112,15 +117,12 @@
                                     </div>
                                 </div>
 
-
                                 <div class="mt-2">
                                     <div class="btn-list justify-content-end">
                                         <button type="submit" class="btn btn-primary">Modifier</button>
                                     </div>
                                 </div>
                             </form>
-
-
                         </div>
                     </div>
                 </div>
@@ -128,4 +130,3 @@
         </div>
     </div>
 </div>
-
