@@ -22,6 +22,11 @@
            wire:navigate.hover>
             Ajouter un article
         </a>
+        <a href="{{ route('articles.user') }}" wire:navigate.hover
+           class="list-group-item list-group-item-action d-flex align-items-center
+            {{ request()->is('articles/user') || request()->is('article/edit/*') ? 'active' : '' }}">
+            Mes articles
+        </a>
 
     </div>
     <h4 class="subheader mt-4">Experience</h4>

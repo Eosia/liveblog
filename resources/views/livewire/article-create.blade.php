@@ -14,9 +14,9 @@
 
                             <h3 class="card-title mt-4">{{ $heading }}</h3>
 
-                            @if(session('success'))
+                            @if($success = $success ?? session('success'))
                                 <div class="alert alert-success">
-                                    {{ session('success') }}
+                                    {{ $success }}
                                 </div>
                             @endif
 

@@ -119,7 +119,7 @@
 
                                 <div class="mt-2">
                                     <div class="btn-list justify-content-end">
-                                        <button type="submit" class="btn btn-primary">Modifier</button>
+                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
                                     </div>
                                 </div>
                             </form>

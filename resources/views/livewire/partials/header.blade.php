@@ -26,7 +26,7 @@
                             <a href="{{ route('profile') }}" class="dropdown-item" wire:navigate>
                                 Mon compte
                             </a>
-                            <a href="#" class="dropdown-item">Mes articles</a>
+                            <a href="{{ route('articles.user') }}" class="dropdown-item" wire:navigate>Mes articles</a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                         </div>

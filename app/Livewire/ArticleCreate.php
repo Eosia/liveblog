@@ -40,6 +40,16 @@ class ArticleCreate extends Component
         $this->categories = Category::all();
     }
 
+
+    public function deletePhoto($photoId)
+    {
+        $photo = $this->article->photos()->findOrFail($photoId);
+        Storage::disk('public')->delete($photo->path);
+        $photo->delete();
+        $this->success = 'La photo a été supprimée.';
+        $this->article->refresh();
+    }
+
     public function store()
     {
         $this->validate();
