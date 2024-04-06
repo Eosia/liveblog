@@ -16,6 +16,7 @@
                         <option value="date">Date</option>
                         <option value="author">Auteur</option>
                         <option value="category">Catégorie</option>
+                        <option value="likes">Likes</option>
                     </select>
                 </div>
 
