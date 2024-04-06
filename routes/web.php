@@ -1,9 +1,10 @@
 <?php
 
 
-use App\Livewire\{ ArticleCreate,
+use App\Livewire\{ArticleCreate,
     ArticleEdit,
     ArticlesUser,
+    CategoriesUpdate,
     DeleteUser,
     Home,
     Category,
@@ -37,6 +38,7 @@ Route::get('article/create', ArticleCreate::class)->name('article.create')->midd
 Route::get('article/edit/{article:slug}', ArticleEdit::class)->name('article.edit')->middleware('auth');
 Route::get('articles/user', ArticlesUser::class)->name('articles.user')->middleware('auth');
 Route::get('article/{article:slug}', ArticleShow::class)->name('article.show');
+Route::get('categories/update', CategoriesUpdate::class)->name('categories.update')->middleware('auth');
 
 Route::middleware(['guest'])->group(function () {
     // route register

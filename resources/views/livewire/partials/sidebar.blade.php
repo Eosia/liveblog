@@ -27,6 +27,11 @@
             {{ request()->is('articles/user') || request()->is('article/edit/*') ? 'active' : '' }}">
             Mes articles
         </a>
+        <a href="{{ route('categories.update') }}" wire:navigate.hover
+           class="list-group-item list-group-item-action d-flex align-items-center
+            {{ request()->is('categories/update') ? 'active' : '' }}">
+            Les Catégories
+        </a>
 
     </div>
     <h4 class="subheader mt-4">Experience</h4>
