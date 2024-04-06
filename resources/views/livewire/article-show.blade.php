@@ -60,30 +60,28 @@
                                     </button>
                                 </div>
 
-
-
-
-
                                 <div class="mt-4 markdown">
                                     <div>
                                         {{ $article->content }}
                                     </div>
-
                                     <div class="mt-4">
-                                        <img src="{{ $article->user->avatar->thumbnail_url
-                                            ?? asset('default_images/default.png') }}"
-                                             alt="{{ $article->user->name }}" class="avatar"
-                                             decoding="async" loading="lazy" }}
-                                        >
+                                        <img
+                                            decoding="async" loading="lazy"
+                                            src="{{ $article->user->avatar->thumbnail_url ?? asset('default_images/default.png') }}"
+                                            alt="{{ $article->user->name }}"
+                                            class="avatar">
                                         <span>
-                                            <a href="{{ route('user', $article->user->slug) }}"
-                                                wire:navifate.hover
-                                            >
-                                                {{ $article->user->name }}
-                                            </a>
-                                        </span>
+                                    <a wire:navigate href="{{ route('user', $article->user->slug) }}">{{ $article->user->name }}</a>
+                                    - Publié le {{ $article->created_at->isoFormat('LLL') }}
+                                </span>
+                                        <br><br>
+                                        @if(Auth::check() && Auth::id() == $article->user_id)
+                                            <span>
+                                        <a href="{{ route('article.edit', $article->slug) }}"
+                                           class="btn btn-primary">Modifier</a>
+                                    </span>
+                                        @endif
                                     </div>
-
                                 </div>
 
                             </div>

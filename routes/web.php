@@ -1,7 +1,16 @@
 <?php
 
 
-use App\Livewire\{ArticleCreate, DeleteUser, Home, Category, PasswordForm, Profile, User, Article, ArticleShow};
+use App\Livewire\{ArticleCreate,
+    ArticleEdit,
+    DeleteUser,
+    Home,
+    Category,
+    PasswordForm,
+    Profile,
+    User,
+    Article,
+    ArticleShow};
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\{Register, Login, Forgot, Reset};
 
@@ -24,6 +33,7 @@ Route::get('category/{category}', Category::class)->name('category');
 Route::get('user/{user:slug}', User::class)->name('user');
 
 Route::get('article/create', ArticleCreate::class)->name('article.create')->middleware('auth');
+Route::get('article/edit/{article:slug}', ArticleEdit::class)->name('article.edit')->middleware('auth');
 
 Route::get('article/{article:slug}', ArticleShow::class)->name('article.show');
 
